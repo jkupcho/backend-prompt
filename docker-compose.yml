@@ -1,0 +1,28 @@
+---
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.5-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  db:
+    image: postgres:13.4
+    environment:
+      POSTGRES_PASSWORD: password
+  api:
+    image: vino-api:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: compose
+    ports:
+    - "8080:8080"
+    depends_on:
+      - rabbitmq
+  listener:
+    image: vino-listener:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: compose
+    ports:
+      - "9090:9090"
+    depends_on:
+      - rabbitmq

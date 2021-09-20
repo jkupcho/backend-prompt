@@ -1,0 +1,5 @@
+rootProject.name = 'backend-prompt'
+
+include 'rest-api'
+include 'listener'
+include 'common'
