@@ -10,6 +10,12 @@ services:
     image: postgres:13.4
     environment:
       POSTGRES_PASSWORD: password
+    ports:
+    - "5432:5432"
+    volumes:
+      - type: bind
+        source: ./docker/docker-entrypoint-initdb.d
+        target: /docker-entrypoint-initdb.d
   api:
     image: vino-api:1.0.0
     environment:
@@ -22,7 +28,9 @@ services:
     image: vino-listener:1.0.0
     environment:
       SPRING_PROFILES_ACTIVE: compose
+      FILTER_TYPE: person
     ports:
       - "9090:9090"
     depends_on:
       - rabbitmq
+      - db
