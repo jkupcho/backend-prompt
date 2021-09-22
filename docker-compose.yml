@@ -1,3 +1,8 @@
+######## WARNING WARNING ########
+#
+# Before running, make sure to run ./build-all.sh to tag the Spring Boot images!
+#
+######## WARNING WARNING ########
 ---
 version: "3.8"
 services:
@@ -6,6 +11,10 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  redis:
+    image: redis:6.2.5
+    ports:
+      - "6379:6379"
   db:
     image: postgres:13.4
     environment:
